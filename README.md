@@ -1,2 +1,2 @@
-# wfe
+# WFE
 Work Flow Environment (Gulp setup)
