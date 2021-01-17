@@ -6,6 +6,7 @@ const htmlmin =      require('gulp-htmlmin')
 const del =          require('del')
 const concat =       require('gulp-concat')
 const minify =       require('gulp-minify')
+const imagemin =     require('gulp-imagemin')
 const autoPrefixer = require('gulp-autoprefixer')
 const sync =         require('browser-sync').create()
 
@@ -38,6 +39,12 @@ function js(){
     .pipe(dest('dist'))
 }
 
+function images() {
+	return src('src/img/**/*')
+		.pipe(imagemin())
+		.pipe(dest('dist/img'))
+}
+
 function clear(){
   return del('dist')
 }
@@ -51,6 +58,6 @@ function serve() {
   watch('src/**/*.js', series(js)).on('change', sync.reload)
 }
 
-exports.build = series(clear, scss, html)
-exports.serve = series(clear, scss, html, serve)
+exports.build = series(clear, scss, html, images)
+exports.serve = series(clear, scss, html, images, serve)
 exports.clear = clear //clears dist folder
