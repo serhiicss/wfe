@@ -37,8 +37,8 @@ function serve() {
   sync.init({
     server: './dist'
   })
-  watch('src/**.html', series(html)).on('change', sync.reload)
-  watch('src/sass/**.sass', series(scss)).on('change', sync.reload)
+  watch('src/**/*.html', series(html)).on('change', sync.reload)
+  watch('src/sass/**/*.sass', series(scss)).on('change', sync.reload)
 }
 
 exports.build = series(clear, scss, html)
