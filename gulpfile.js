@@ -5,6 +5,7 @@ const include =      require('gulp-file-include')
 const htmlmin =      require('gulp-htmlmin')
 const del =          require('del')
 const concat =       require('gulp-concat')
+const minify =       require('gulp-minify')
 const autoPrefixer = require('gulp-autoprefixer')
 const sync =         require('browser-sync').create()
 
@@ -29,6 +30,14 @@ function scss(){
     .pipe(dest('dist'))
 }
 
+function js(){
+  return src('src/js/**.js')
+    .pipe(minify({
+      noSource: true
+    }))
+    .pipe(dest('dist'))
+}
+
 function clear(){
   return del('dist')
 }
@@ -39,6 +48,7 @@ function serve() {
   })
   watch('src/**/*.html', series(html)).on('change', sync.reload)
   watch('src/sass/**/*.sass', series(scss)).on('change', sync.reload)
+  watch('src/**/*.js', series(js)).on('change', sync.reload)
 }
 
 exports.build = series(clear, scss, html)
