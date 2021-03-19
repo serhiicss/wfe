@@ -21,7 +21,7 @@ function html() {
     .pipe(dest('dist'))
 }
 function scss(){
-  return src('src/sass/**.sass')
+  return src('src/sass/main.sass')
     .pipe(sass())
     .pipe(autoPrefixer({
       "overrideBrowserslist": ["last 2 versions"]
